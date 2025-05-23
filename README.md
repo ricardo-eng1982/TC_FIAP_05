@@ -90,26 +90,34 @@ docker run -p 8000:8000 tc-fiap-05
 
 ## 📊 Uso da API
 
-### Endpoints Disponíveis
+### Endpoint Disponível
 
-#### GET /vagas
-Retorna todas as vagas disponíveis
-```bash
-curl http://localhost:8000/vagas
+#### POST /predict
+Prediz recomendações de vagas baseadas no perfil profissional fornecido
+
+**Payload:**
+```json
+{
+    "principais_atividades": "Desenvolver aplicações web usando Python e FastAPI",
+    "competencia_tecnicas_e_comportamentais": "Python, FastAPI, Machine Learning, trabalho em equipe"
+}
 ```
 
-#### POST /recomendar
-Solicita recomendações baseadas em critérios
+**Exemplo de requisição:**
 ```bash
-curl -X POST http://localhost:8000/recomendar \
+curl -X POST http://localhost:8000/predict \
   -H "Content-Type: application/json" \
-  -d '{"localizacao": "São Paulo", "salario_minimo": 5000}'
+  -d '{
+    "principais_atividades": "Desenvolver aplicações web usando Python e FastAPI",
+    "competencia_tecnicas_e_comportamentais": "Python, FastAPI, Machine Learning, trabalho em equipe"
+  }'
 ```
 
-#### GET /clusters
-Visualiza os clusters de vagas
-```bash
-curl http://localhost:8000/clusters
+**Resposta esperada:**
+```json
+{
+  "cluster": 2
+}
 ```
 
 ## 🤖 Como Funciona o Algoritmo
@@ -179,41 +187,15 @@ Execute os testes unitários:
 python -m pytest tests/
 ```
 
-## 📝 Exemplos de Uso
-
-### Exemplo 1: Busca por Localização
-```python
-import requests
-
-response = requests.post('http://localhost:8000/recomendar', 
-                        json={'localizacao': 'São Paulo'})
-print(response.json())
-```
-
-### Exemplo 2: Filtro por Salário
-```python
-response = requests.post('http://localhost:8000/recomendar', 
-                        json={'salario_minimo': 8000})
-print(response.json())
-```
-
-## 🤝 Contribuição
-
-1. Fork o projeto
-2. Crie uma branch para sua feature (`git checkout -b feature/AmazingFeature`)
-3. Commit suas mudanças (`git commit -m 'Add some AmazingFeature'`)
-4. Push para a branch (`git push origin feature/AmazingFeature`)
-5. Abra um Pull Request
-
 ## 📄 Licença
 
 Este projeto está sob a licença MIT. Veja o arquivo `LICENSE` para mais detalhes.
 
 ## 👥 Autores
 
-- **Ricardo de Souza Santos** - *Desenvolvimento inicial* - [ricardo-eng1982](https://github.com/ricardo-eng1982)
+- **Ricardo** - *Desenvolvimento inicial* - [ricardo-eng1982](https://github.com/ricardo-eng1982)
 
-## Informações
+## 📞 Contato
 
 - **Projeto**: [TC_FIAP_05](https://github.com/ricardo-eng1982/TC_FIAP_05)
 - **Instituição**: FIAP - Faculdade de Informática e Administração Paulista
